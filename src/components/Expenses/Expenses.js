@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import ExpenseItem from "./ExpenseItem";
 import './Expenses.css'
 import Card from "../UI/Card";
 import ExpensesFilter from "./ExpensesFilter";
+import ExpensesList from './ExpensesList';
+import ExpensesChart from './ExpensesChart';
+
 
 const Expenses = (props) =>{  
   const [filteredYear,setFilteredYear] = useState('2020');
@@ -13,23 +15,26 @@ const filterChangeHandler = (selectedYear)=>{
 const filteredExpenses = props.items.filter((expense) => {
   return expense.date.getFullYear().toString() === filteredYear;
 })
-// to render conditional content
-let expensesContent = <p>No expense content for the year {filteredYear}.</p>
-if(filteredExpenses.length > 0)
-{
-  expensesContent = filteredExpenses.map(expense=>(
-    <ExpenseItem
-    key = {expense.id} //to let react know where to add the items in a list we give a unique key
-    title={expense.title}
-    amount={expense.amount}
-    date={expense.date} />
-  ))
-}
+// To output conditional list based on filtered year
+// let expensesContent = <p>No expense content for the year {filteredYear}.</p>
+// if(props.items.length > 0)
+// {
+//   expensesContent = props.items.map(expense=>(
+//     <ExpenseItem
+//     key = {expense.id} //to let react know where to add the items in a list we give a unique key
+//     title={expense.title}
+//     amount={expense.amount}
+//     date={expense.date} />
+//   ))
+// }
+
+
     return (
-      <div>
+      <li>
        
         <Card className="expenses">
         <ExpensesFilter selected={filteredYear} onChangeFilter = {filterChangeHandler}/>
+        <ExpensesChart expenses = {filteredExpenses} />
         {/* Rendering List Items statically */}
              {/* <ExpenseItem
         title={props.items[0].title}
@@ -72,9 +77,9 @@ if(filteredExpenses.length > 0)
       ))} */}
 
       {/* to render conditional content */}
-      {expensesContent}  
+      <ExpensesList items={filteredExpenses} />
         </Card>
-        </div>
+        </li>
         
         );
 }
