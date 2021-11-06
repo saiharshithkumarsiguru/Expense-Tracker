@@ -41,6 +41,7 @@ console.log(filteredYear);
       {/* Rendering list items dynamically */}
       {props.items.map(expense=>(
         <ExpenseItem
+        key = {expense.id} //to let react know where to add the items in a list we give a unique key prop
         title={expense.title}
         amount={expense.amount}
         date={expense.date} />
