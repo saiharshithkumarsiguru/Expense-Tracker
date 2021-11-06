@@ -10,6 +10,9 @@ const filterChangeHandler = (selectedYear)=>{
   setFilteredYear(selectedYear);
 
 }
+const filteredExpenses = props.items.filter((expense) => {
+  return expense.date.getFullYear().toString() === filteredYear;
+})
 console.log(filteredYear);
     return (
       <div>
@@ -39,9 +42,19 @@ console.log(filteredYear);
       /> */}
 
       {/* Rendering list items dynamically */}
-      {props.items.map(expense=>(
+      {/* {props.items.map(expense=>(
         <ExpenseItem
-        key = {expense.id} //to let react know where to add the items in a list we give a unique key prop
+        key = {expense.id} //to let react know where to add the items in a list we give a unique key
+        title={expense.title}
+        amount={expense.amount}
+        date={expense.date} />
+      ))} */}
+
+      
+      {/* Render dynamic list data based on filtered year */}
+      {filteredExpenses.map(expense=>(
+        <ExpenseItem
+        key = {expense.id} //to let react know where to add the items in a list we give a unique key
         title={expense.title}
         amount={expense.amount}
         date={expense.date} />
