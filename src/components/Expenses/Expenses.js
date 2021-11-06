@@ -13,7 +13,18 @@ const filterChangeHandler = (selectedYear)=>{
 const filteredExpenses = props.items.filter((expense) => {
   return expense.date.getFullYear().toString() === filteredYear;
 })
-console.log(filteredYear);
+// to render conditional content
+let expensesContent = <p>No expense content for the year {filteredYear}.</p>
+if(filteredExpenses.length > 0)
+{
+  expensesContent = filteredExpenses.map(expense=>(
+    <ExpenseItem
+    key = {expense.id} //to let react know where to add the items in a list we give a unique key
+    title={expense.title}
+    amount={expense.amount}
+    date={expense.date} />
+  ))
+}
     return (
       <div>
        
@@ -50,15 +61,18 @@ console.log(filteredYear);
         date={expense.date} />
       ))} */}
 
-      
+
       {/* Render dynamic list data based on filtered year */}
-      {filteredExpenses.map(expense=>(
+      {/* {filteredExpenses.map(expense=>(
         <ExpenseItem
         key = {expense.id} //to let react know where to add the items in a list we give a unique key
         title={expense.title}
         amount={expense.amount}
         date={expense.date} />
-      ))}
+      ))} */}
+
+      {/* to render conditional content */}
+      {expensesContent}  
         </Card>
         </div>
         
